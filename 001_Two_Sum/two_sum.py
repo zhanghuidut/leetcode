@@ -19,7 +19,7 @@ class Solution(object):
         :rtype: List[int]
         """
         test = [(index, val) for index, val in enumerate(nums)]
-        test.sort(lambda x, y: cmp(x[1], y[1]))
+        test.sort(cmp=lambda x, y: cmp(x[1], y[1]))
         
         start = 0
         end = len(test) -1
