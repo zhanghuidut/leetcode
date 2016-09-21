@@ -1,3 +1,4 @@
+# Time Limit Exceeded 
 class Solution(object):
     def isMatch(self, s, p):
         """
@@ -5,24 +6,25 @@ class Solution(object):
         :type p: str
         :rtype: bool
         """
-        len1, len2 = len(s), len(p)
-        p1, p2 = 0, 0
-        last = ''
-        while (p1 < len1) and (p2 < len2):
-            cur = p1
-            if p[p2] == '.' or p[p2] ==s[p1]:
-                p2 += 1
-                p1 += 1
-            elif p[p2] == '*':
-                while s[p1] == s[last]:
-                    p1 += 1
-                p2 + =1
-            elif p[p2] !=s[p1]:
-                return False
-            
-            last = s[cur]
-
-        if p1==len1 - 1 and p2==len2 - 1:
+        slen, plen = len(s), len(p)
+        if slen == 0 and plen == 0:
             return True
-        else:
+        elif plen == 0:
             return False
+        
+        if plen > 1 and p[1] == '*':
+            index = 0
+            while index < slen and (s[index] == p[0] or p[0] == '.'):
+                if self.isMatch(s[index+1:], p[2:]):
+                    return True
+                index += 1
+            if self.isMatch(s, p[2:]):
+                return True
+        elif slen > 0:
+            if s[0] == p[0] or p[0] == '.':
+                return self.isMatch(s[1:], p[1:])
+
+        return False
+    
+
+            
