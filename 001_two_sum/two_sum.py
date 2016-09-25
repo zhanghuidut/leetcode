@@ -12,25 +12,22 @@ class Solution(object):
         return [-1, -1]
 
     # method 2: binary search
+class Solution(object):
     def twoSum(self, nums, target):
         """
         :type nums: List[int]
         :type target: int
         :rtype: List[int]
         """
-        test = [(index, val) for index, val in enumerate(nums)]
-        test.sort(cmp=lambda x, y: cmp(x[1], y[1]))
-        
-        start = 0
-        end = len(test) -1
-        while 1:
-            if start == end:
-                break
-            val = test[start][1] + test[end][1]
+        data = [(index, val) for index, val in enumerate(nums)]
+        data.sort(key=lambda x: x[1])
+        start, end = 0, len(nums)-1
+        while start < end:
+            val = data[start][1] + data[end][1]
             if val == target:
-                return [test[start][0], test[end][0]]
-            elif val < target:
-                start += 1
-            else:
+                return [data[start][0], data[end][0]]
+            elif val > target:
                 end -= 1
+            else:
+                start += 1
         return [-1, -1]
