@@ -1,3 +1,27 @@
+#递归回朔
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        if not digits:
+            return []
+
+        mapping = {'2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
+                   '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}
+        tmp, res = '', []
+
+        def travel(strs, tmp, res):
+            if strs == '':
+                res.append(tmp)
+            else:
+                for ch in mapping[strs[0]]:
+                    travel(strs[1:], tmp+ch, res)
+
+        travel(digits, tmp, res)
+        return res
+
 # 迭代回朔
 class Solution(object):
     def letterCombinations(self, digits):
