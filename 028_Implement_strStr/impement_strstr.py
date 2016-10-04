@@ -1,3 +1,4 @@
+# BF O(mn)
 class Solution(object):
     def strStr(self, haystack, needle):
         """
