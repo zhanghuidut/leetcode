@@ -1,0 +1,9 @@
+28. Implement strStr()
+
+    Total Accepted: 132041
+    Total Submissions: 503302
+    Difficulty: Easy
+
+Implement strStr().
+
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack. 
