@@ -1,9 +1,9 @@
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Solution(object):
     def isValidBST(self, root):
@@ -11,23 +11,25 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        if not root:
-            return True
+        val = self.helper(root) if root else (1, 1)
+        return True if 'f' not in val else False
 
-        left = root.val > self.getMaxValue(root.left) and self.isValidBST(root.left) if root.left else True
-
-        if not left:
-            return False
+    def helper(self, root):
+        if root.left:
+            lminVal, lmaxVal = self.helper(root.left)
+            lsign = (lmaxVal < root.val)
+        else:
+            lminVal, lmaxVal = root.val, root.val
+            lsign = True
         
-        return root.val < self.getMinValue(root.right) and self.isValidBST(root.right) if root.right else True
+        if root.right:
+            rminVal, rmaxVal = self.helper(root.right)
+            rsign = (root.val < rminVal)
+        else:
+            rminVal, rmaxVal = root.val, root.val
+            rsign = True
 
-
-    def getMaxValue(self, root):
-        while root.right:
-            root = root.right
-        return root.val
-
-    def getMinValue(self, root):
-        while root.left:
-            root = root.left
-        return root.val
+        if 'f' not in [lminVal, lmaxVal, rminVal, rmaxVal] and lsign and rsign:
+            return lminVal, rmaxVal
+        else:
+            return ('f', 'f')
