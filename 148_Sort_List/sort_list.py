@@ -41,19 +41,52 @@ class Solution(object):
         return pre.next
 
 
-
-def buildlist(nums):
-    root = temp = None
-    for val in nums:
-        if temp:
-            temp.next = ListNode(val)
+# merge sort: AC
+class Solution(object):
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        start = ListNode(None)
+        start.next = head
+        self.mergesort(start)
+        return start.next
+    
+    def mergesort(self, start1):
+        if start1.next and start1.next.next:
+            fir, sec = start1.next, start1.next.next
+            while sec and sec.next:
+                fir = fir.next
+                sec = sec.next
+                sec = sec.next
+            mid = fir.next
+            fir.next = None
+            self.mergesort(start1)
+            start2 = ListNode(None)
+            start2.next = mid
+            self.mergesort(start2)
+            self.merge(start1, start2)
+    
+    def merge(self, start1, start2):
+        temp = start1
+        fir = start1.next
+        sec = start2.next
+        while fir != None and sec != None:
+            if fir.val < sec.val:
+                temp.next = fir
+                fir = fir.next
+            else:
+                temp.next = sec
+                sec = sec.next
             temp = temp.next
-        else:
-            temp = ListNode(val)
-            root = temp
-
-    return root
-
-nums=[3,2,1]
-root = buildlist(nums)
-Solution().sortList(root)
+        
+        while fir != None:
+            temp.next = fir
+            fir = fir.next
+            temp = temp.next
+        
+        while sec != None:
+            temp.next = sec
+            sec = sec.next
+            temp = temp.next
