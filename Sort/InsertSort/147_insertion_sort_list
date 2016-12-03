@@ -1,0 +1,34 @@
+#######################################
+147. Insertion Sort List 
+
+Sort a linked list using insertion sort.
+#######################################
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def insertionSortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head or not head.next:
+            return head
+
+        start = ListNode(0)
+        start.next = head
+        j = head.next
+        head.next = None
+        while j:
+            k = j.next
+            i = start
+            while i.next and i.next.val < j.val:
+                i = i.next
+            j.next = i.next
+            i.next = j
+            j = k
+        return start.next
