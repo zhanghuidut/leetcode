@@ -1,0 +1,62 @@
+###########################################################
+117. Populating Next Right Pointers in Each Node II
+
+Follow up for problem "Populating Next Right Pointers in Each Node".
+What if the given tree could be any binary tree? Would your previous solution still work?
+Note:
+You may only use constant extra space.
+For example,
+Given the following binary tree,
+         1
+       /  \
+      2    3
+     / \    \
+    4   5    7
+After calling your function, the tree should look like:
+         1 -> NULL
+       /  \
+      2 -> 3 -> NULL
+     / \    \
+    4-> 5 -> 7 -> NULL
+###########################################################
+
+# Definition for binary tree with next pointer.
+# class TreeLinkNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#         self.next = None
+
+class Solution:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root):
+        if not root:
+            return
+        node = root
+        while 1:
+            nextStart, cur = None, None
+            while node:
+                if node.left:
+                    if cur:
+                        cur.next = node.left
+                        cur = cur.next
+                    else:
+                        cur = node.left
+                    if not nextStart:
+                        nextStart = node.left
+                if node.right:
+                    if cur:
+                        cur.next = node.right
+                        cur = cur.next
+                    else:
+                        cur = node.right
+                    if not nextStart:
+                        nextStart = node.right
+                node = node.next
+
+            if nextStart:
+                node = nextStart
+            else:
+                break
