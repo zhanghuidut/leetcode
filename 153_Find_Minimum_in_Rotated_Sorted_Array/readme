@@ -1,0 +1,10 @@
+153. Find Minimum in Rotated Sorted Array
+
+Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+Find the minimum element.
+
+如果nums[0] < nums[end]，说明没有旋转，直接返回nums[0]
+否则二分搜索满足nums[i]>nums[i+1]的值.
